@@ -3,46 +3,34 @@ import { partTwo, partOne } from ".";
 import { readFileSync } from "fs";
 import { join } from "path";
 
-const sampleInputOne = `
-1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet
-`.trim();
-
-const sampleInputTwo = `
-two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen
-`.trim();
+const sampleInput = readFileSync(
+  join(import.meta.dir, "./sample-1.txt"),
+  "utf8"
+).trim();
 
 const inputOne = readFileSync(
   join(import.meta.dir, "./input-1.txt"),
   "utf8"
 ).trim();
 
-describe("day 1", () => {
+describe("day 2", () => {
   describe("part 1", () => {
     test("sample input", () => {
-      expect(partOne(sampleInputOne)).toEqual(142);
+      expect(partOne(sampleInput)).toEqual(8);
     });
 
     test("input", () => {
-      expect(partOne(inputOne)).toEqual(55017);
+      expect(partOne(inputOne)).toEqual(2149);
     });
   });
 
   describe("part 2", () => {
     test("sample input", () => {
-      expect(partTwo(sampleInputTwo)).toEqual(281);
+      expect(partTwo(sampleInput)).toEqual(2286);
     });
 
     test("input", () => {
-      expect(partTwo(inputOne)).toEqual(53539);
+      expect(partTwo(inputOne)).toEqual(281);
     });
   });
 });
