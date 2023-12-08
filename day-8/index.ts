@@ -1,5 +1,3 @@
-import lcm from "lcm";
-
 type Node = {
   name: string;
   left: string;
@@ -94,6 +92,17 @@ const countEndsWithSteps = (
   }
 
   return steps;
+};
+
+const lcm = (a: number, b: number): number => {
+  const smallest = Math.min(a, b);
+  const largest = Math.max(a, b);
+
+  for (let i = largest; (i += largest); ) {
+    if (i % smallest === 0) return i;
+  }
+
+  throw new Error("No LCM");
 };
 
 export const partOne = (input: string): number => {
