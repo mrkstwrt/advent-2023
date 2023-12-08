@@ -81,7 +81,6 @@ const getXofAKind = (
         }
 
         if (used.length === x) {
-          console.log("found jokers", { used, remaining });
           return { used, remaining };
         }
       }

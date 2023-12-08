@@ -30,7 +30,7 @@ describe("day 7", () => {
     });
 
     test("input", () => {
-      expect(partTwo(inputOne)).toEqual(35865985);
+      expect(partTwo(inputOne)).toEqual(251003917);
     });
   });
 });
