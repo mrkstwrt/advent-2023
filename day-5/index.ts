@@ -39,19 +39,54 @@ const parseMaps = (input: string): Array<GardnerMap> =>
         });
     });
 
-export const partOne = (input: string): number => {
-  const seeds = parseSeeds(input);
-  const maps = parseMaps(input);
-
-  return seeds
-    .map((seed) =>
-      maps.reduce((previous, mapSet) => {
+const findLowestLocation = (
+  seeds: Array<number>,
+  maps: Array<GardnerMap>
+): number =>
+  seeds
+    .map((seed, i, { length }) => {
+      return maps.reduce((previous, mapSet) => {
         const { difference } = mapSet.find(
           ({ start, end }) => previous >= start && previous <= end
         ) ?? { difference: 0 };
 
         return previous + difference;
-      }, seed)
-    )
+      }, seed);
+    })
     .reduce((lowest, number) => (number < lowest ? number : lowest), Infinity);
+
+export const partOne = (input: string): number => {
+  const seeds = parseSeeds(input);
+  const maps = parseMaps(input);
+
+  return findLowestLocation(seeds, maps);
+};
+
+export const partTwo = (input: string): number => {
+  const seeds = parseSeeds(input);
+  const maps = parseMaps(input);
+
+  let lowest = Infinity;
+
+  for (let i = 0; i < seeds.length; i += 2) {
+    const start = seeds[i];
+    const length = seeds[i + 1];
+
+    for (let j = 0; j < length; j++) {
+      const seed = start + j;
+      const location = maps.reduce((previous, mapSet) => {
+        const { difference } = mapSet.find(
+          ({ start, end }) => previous >= start && previous <= end
+        ) ?? { difference: 0 };
+
+        return previous + difference;
+      }, seed);
+
+      if (location < lowest) {
+        lowest = location;
+      }
+    }
+  }
+
+  return lowest - 1;
 };

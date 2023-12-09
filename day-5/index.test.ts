@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { partOne } from ".";
+import { partOne, partTwo } from ".";
 import { readFileSync } from "fs";
 import { join } from "path";
 
@@ -22,5 +22,15 @@ describe("day 5", () => {
     test("input", () => {
       expect(partOne(inputOne)).toEqual(662197086);
     });
+  });
+
+  describe("part 2", () => {
+    test("sample input", () => {
+      expect(partTwo(sampleInput)).toEqual(46);
+    });
+
+    // test("input", () => {
+    //   expect(partOne(inputOne)).toEqual(662197086);
+    // });
   });
 });
