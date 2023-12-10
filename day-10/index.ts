@@ -93,14 +93,18 @@ const findAdjacentPipes = (
     : coords;
 };
 
-export const partOne = (input: string): number => {
-  const { startCoords, map } = parseInput(input);
+export const findPath = (
+  map: PipeMap,
+  startCoords: Coordinates
+): Array<Coordinates> => {
+  const path: Array<Coordinates> = [startCoords];
 
   let [nextPipe] = findAdjacentPipes(map, startCoords);
   let previousPipe = startCoords;
-  let steps = 1;
 
   while (map[nextPipe[1]][nextPipe[0]] !== Pipe.Start) {
+    path.push(nextPipe);
+
     const adjacentPipes = findAdjacentPipes(map, nextPipe, [previousPipe]);
 
     if (adjacentPipes.length > 1) {
@@ -109,13 +113,53 @@ export const partOne = (input: string): number => {
 
     previousPipe = nextPipe;
     nextPipe = adjacentPipes[0];
-
-    steps++;
   }
 
-  return steps / 2;
+  return path;
+};
+
+const normaliseMap = (
+  map: PipeMap,
+  path: Array<Coordinates>
+): Array<Array<0 | 1 | 2>> => // 0 = empty, 1 = path, 2 = path switching to north
+  map.map((row, y) =>
+    row.map((pipe, x) =>
+      path.find((p) => p[0] === x && p[1] === y)
+        ? southConnections.includes(pipe)
+          ? 2
+          : 1
+        : 0
+    )
+  );
+
+export const partOne = (input: string): number => {
+  const { startCoords, map } = parseInput(input);
+
+  return findPath(map, startCoords).length / 2;
 };
 
 export const partTwo = (input: string): number => {
-  return 0;
+  const { startCoords, map } = parseInput(input);
+
+  const path = findPath(map, startCoords);
+
+  const normalisedMap = normaliseMap(map, path);
+
+  let count = 0;
+
+  for (let y = 0; y < normalisedMap.length; ++y) {
+    for (let x = 0; x < normalisedMap[y].length; ++x) {
+      if (normalisedMap[y][x] === 0) {
+        // If we cross an odd number of "sides", the point is insdie the path
+        if (
+          normalisedMap[y].slice(0, x).filter((p) => p === 2).length % 2 !==
+          0
+        ) {
+          count++;
+        }
+      }
+    }
+  }
+
+  return count;
 };

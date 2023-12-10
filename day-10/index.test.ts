@@ -13,6 +13,11 @@ const sampleInputTwo = readFileSync(
   "utf8"
 ).trim();
 
+const sampleInputThree = readFileSync(
+  join(import.meta.dir, "./sample-3.txt"),
+  "utf8"
+).trim();
+
 const inputOne = readFileSync(
   join(import.meta.dir, "./input-1.txt"),
   "utf8"
@@ -33,13 +38,13 @@ describe("day 10", () => {
     });
   });
 
-  // describe("part 2", () => {
-  //   test("sample input", () => {
-  //     expect(partTwo(sampleInput)).toEqual(2);
-  //   });
+  describe("part 2", () => {
+    test("sample input", () => {
+      expect(partTwo(sampleInputThree)).toEqual(10);
+    });
 
-  //   test("input", () => {
-  //     expect(partTwo(inputOne)).toEqual(1012);
-  //   });
-  // });
+    test("input", () => {
+      expect(partTwo(inputOne)).toEqual(467);
+    });
+  });
 });
