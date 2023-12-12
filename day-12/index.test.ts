@@ -13,24 +13,24 @@ const inputOne = readFileSync(
   "utf8"
 ).trim();
 
-describe("day 11", () => {
+describe("day 12", () => {
   describe("part 1", () => {
     test("sample input 1", () => {
-      expect(partOne(sampleInput)).toEqual(374);
+      expect(partOne(sampleInput)).toEqual(21);
     });
 
     test("input", () => {
-      expect(partOne(inputOne)).toEqual(9274989);
+      expect(partOne(inputOne)).toEqual(7506);
     });
   });
 
   describe("part 2", () => {
     test("sample input", () => {
-      expect(partTwo(sampleInput)).toEqual(82000210);
+      expect(partTwo(sampleInput)).toEqual(525152);
     });
 
     test("input", () => {
-      expect(partTwo(inputOne)).toEqual(357134560737);
+      expect(partTwo(inputOne)).toEqual(548241300348335);
     });
   });
 });
